@@ -24,7 +24,7 @@ jobs:
       - uses: thecodemonkey/action-get-gradle-version@master
         id: getVersion
         with:
-          file: .\build.gradle
+          file: .\build.gradle.kts
 
       - run: 'echo App Version Is ${{ steps.version.outputs.version }}'
 
