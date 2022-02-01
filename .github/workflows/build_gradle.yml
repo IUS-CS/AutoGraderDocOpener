@@ -34,6 +34,11 @@ jobs:
       - name: Gradle Jar
         run: ./gradlew jar
 
+      - name: Change Jar Name
+        shell: bash
+        run: |
+          cp ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar ./build/libs/DocsOpener.jar
+
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
@@ -41,5 +46,5 @@ jobs:
           name: ${{ steps.getVersion.outputs.version }}
           tag: Release
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
+          artifacts: ./build/libs/DocsOpener.jar
 
