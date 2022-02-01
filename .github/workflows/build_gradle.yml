@@ -34,11 +34,12 @@ jobs:
       - name: Gradle Jar
         run: ./gradlew jar
 
-      - name: ls
-        run: ls ./
-
-      - name: ls lib
-        run:  ls ./build/libs
+      - name: Create GitHub release
+        uses: Roang-zero1/github-create-release-action@master
+        with:
+          version_regex: ${{ steps.getVersion.outputs.version }} #^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
