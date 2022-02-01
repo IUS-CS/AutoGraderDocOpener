@@ -34,36 +34,11 @@ jobs:
       - name: Gradle Jar
         run: ./gradlew jar
 
-      - name: release
-        uses: actions/create-release@v1
-        id: create_release
+      - name: Create Release
+        uses: ncipollo/release-action@v1
         with:
-          draft: false
-          prerelease: false
-          release_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
-          tag_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+          allowUpdates: true
+          name: ${{ steps.getVersion.outputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
-          asset_name: DocsOpener-${{ steps.getVersion.outputs.version }}.jar
-          tag: ${{ github.ref }}
-          overwrite: true
-          body: "This is my release text"
-
-
-
-
-#      - name: upload Jar to release
-#        uses: actions/upload-release-asset@v1
-#        env:
-#          GITHUB_TOKEN: ${{ github.token }}
-#        with:
-#          upload_url: ${{ steps.create_release.outputs.upload_url }}
-#          asset_path: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
-#          asset_name: azblogfilter.linux-amd64.tar.gz
-#          asset_content_type: application/
