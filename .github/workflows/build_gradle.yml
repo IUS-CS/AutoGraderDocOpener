@@ -35,7 +35,10 @@ jobs:
         run: ./gradlew jar
 
       - name: ls
-        run: ls ./ && 'echo ---' && ls ./build && 'echo ---' && ls ./build/libs
+        run: ls ./
+
+      - name: ls lib
+        run:  ls ./build/libs
 
       - name: Create GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
