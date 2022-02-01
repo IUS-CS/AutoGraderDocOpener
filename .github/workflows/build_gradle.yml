@@ -42,7 +42,6 @@ jobs:
           prerelease: false
           release_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
           tag_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
-          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
