@@ -34,14 +34,14 @@ jobs:
       - name: Gradle Jar
         run: ./gradlew jar
 
-      - name: Create GitHub release
+      - name: Create Release
         uses: Roang-zero1/github-create-release-action@master
         with:
-          version_regex: ${{ steps.getVersion.outputs.version }} #^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
+          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create GitHub release
+      - name: Create GitHub Release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
           args: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
