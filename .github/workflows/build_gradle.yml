@@ -34,6 +34,20 @@ jobs:
       - name: Gradle Jar
         run: ./gradlew jar
 
+      - name: release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
+          tag_name: ${{ steps.getVersion.outputs.version }}.${{ github.ref }}
+          body_path: CHANGELOG.md
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+
+
       - name: Create Release
         uses: Roang-zero1/github-create-release-action@master
         with:
