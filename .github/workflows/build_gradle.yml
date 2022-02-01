@@ -46,19 +46,25 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
 
-
-
-      - name: Create Release
-        uses: Roang-zero1/github-create-release-action@master
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          version_regex: ^v[[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
+          asset_name: DocsOpener-${{ steps.getVersion.outputs.version }}.jar
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: "This is my release text"
 
-      - name: Create GitHub Release
-        uses: Roang-zero1/github-upload-release-artifacts-action@master
-        with:
-          args: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+#      - name: upload Jar to release
+#        uses: actions/upload-release-asset@v1
+#        env:
+#          GITHUB_TOKEN: ${{ github.token }}
+#        with:
+#          upload_url: ${{ steps.create_release.outputs.upload_url }}
+#          asset_path: ./build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
+#          asset_name: azblogfilter.linux-amd64.tar.gz
+#          asset_content_type: application/
