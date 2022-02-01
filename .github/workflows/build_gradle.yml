@@ -26,7 +26,7 @@ jobs:
         with:
           file: ./build.gradle.kts
 
-      - run: 'echo App Version Is ${{ steps.version.outputs.version }}'
+      - run: 'echo App Version Is ${{ steps.getVersion.outputs.version }}'
 
       - name: Grant Permissions to gradlew
         run: chmod +x gradlew
@@ -40,7 +40,7 @@ jobs:
       - name: Create GitHub release
         uses: Roang-zero1/github-upload-release-artifacts-action@master
         with:
-          args: build/libs/AutoGraderDocsOpener-${{ steps.version.outputs.version }}.jar
+          args: build/libs/AutoGraderDocsOpener-${{ steps.getVersion.outputs.version }}.jar
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
