@@ -19,12 +19,12 @@ jobs:
         uses: gradle/wrapper-validation-action@e6e38bacfdf1a337459f332974bb2327a31aaf4b
 
       - name: ls
-        run: ls .\
+        run: ls ./
 
       - uses: thecodemonkey/action-get-gradle-version@master
         id: getVersion
         with:
-          file: .\build.gradle.kts
+          file: ./build.gradle.kts
 
       - run: 'echo App Version Is ${{ steps.version.outputs.version }}'
 
